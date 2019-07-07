@@ -4,6 +4,11 @@ import App from "./App.vue";
 // 导入路由
 import VueRouter from "vue-router";
 
+// 导入 axios
+import axios from "axios";
+// 全局配置axios
+Vue.prototype.$axios = axios;
+
 // 模块化机制编程
 Vue.use(VueRouter);
 
@@ -11,9 +16,9 @@ Vue.use(VueRouter);
 // 搜索结果
 import results from "./components/results.vue";
 // 歌词
-import player from './components/player.vue'
+import player from "./components/player.vue";
 // MV
-import video from './components/video.vue'
+import video from "./components/video.vue";
 // 评论
 import comment from "./components/comment.vue";
 
@@ -21,7 +26,7 @@ import comment from "./components/comment.vue";
 const routes = [
   // 搜索结果
   {
-    path: "/results",
+    path: "/results/:keywords",
     component: results
   },
   // 歌词

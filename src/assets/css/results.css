@@ -1,5 +1,7 @@
 .result-wrapper {
   width: 900px;
+  height: 300px;
+  overflow: auto;
 }
 .result-wrapper .song {
   display: flex;
@@ -13,7 +15,7 @@
   background-color: #f7f7f7;
 }
 
-.result-wrapper .song:hover{
+.result-wrapper .song:hover {
   background-color: #f2f2f2;
   border-color: #e1e1e1;
 }
@@ -39,6 +41,6 @@
 .result-wrapper .song .time {
   flex: 1;
 }
-.result-wrapper .song .icon-editmedia{
-  color:#b50b0c;
+.result-wrapper .song .icon-editmedia {
+  color: #b50b0c;
 }
