@@ -13,7 +13,7 @@
         <router-link active-class="active" to="/results" tag="span" class="bar-item">搜索结果</router-link>
         <router-link active-class="active" to="/player" tag="span" class="bar-item">歌词</router-link>
         <router-link active-class="active" to="/video" tag="span" class="bar-item">mv</router-link>
-        <a class="bar-item">歌曲评论</a>
+        <router-link active-class="active" to="/comment" tag="span" class="bar-item">歌曲评论</router-link>
       </div>
       <!-- 对应的内容区域 -->
       <router-view></router-view>

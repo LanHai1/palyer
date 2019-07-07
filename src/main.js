@@ -14,6 +14,8 @@ import results from "./components/results.vue";
 import player from './components/player.vue'
 // MV
 import video from './components/video.vue'
+// 评论
+import comment from "./components/comment.vue";
 
 //  定义路由
 const routes = [
@@ -31,6 +33,11 @@ const routes = [
   {
     path: "/video",
     component: video
+  },
+  // 评论
+  {
+    path: "/comment",
+    component: comment
   }
 ];
 
