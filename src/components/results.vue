@@ -2,7 +2,7 @@
   <div class="result-wrapper">
     <div class="song" v-for="item in songsList" :key="item.id">
       <div class="name">
-        <span class="iconfont icon-play"></span>
+        <span class="iconfont icon-play" @click="playerSong(item.id)"></span>
         <span class="resultName">{{item.name}}</span>
         <span class="iconfont icon-editmedia"></span>
       </div>
@@ -55,6 +55,15 @@ export default {
       });
       // 删除字符串的最后一个字符
       return allSinger.substr(0, allSinger.length - 1);
+    }
+  },
+  methods: {
+    // 歌曲播放
+    playerSong(id) {
+      // 传递歌曲id给父组件
+      this.$emit("event", { id });
+      // 编程式路由跳转
+      this.$router.replace(`/player/${id}`)
     }
   }
 };

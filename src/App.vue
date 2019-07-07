@@ -11,14 +11,14 @@
       <!-- tab栏 -->
       <div class="tab-bar">
         <router-link active-class="active" :to="'/results/'+musci" tag="span" class="bar-item">搜索结果</router-link>
-        <router-link active-class="active" to="/player" tag="span" class="bar-item">歌词</router-link>
+        <router-link active-class="active" :to="'/player/'+musciId" tag="span" class="bar-item">歌词</router-link>
         <router-link active-class="active" to="/video" tag="span" class="bar-item">mv</router-link>
         <router-link active-class="active" to="/comment" tag="span" class="bar-item">歌曲评论</router-link>
       </div>
       <!-- 对应的内容区域 -->
-      <router-view :key="key"></router-view>
+      <router-view :key="key" @event="receiveData"></router-view>
     </div>
-    <audio class="audio" controls src></audio>
+    <audio class="audio" controls autoplay="autoplay" :src="musciURL"></audio>
   </div>
 </template>
 
@@ -27,13 +27,47 @@ export default {
   data() {
     return {
       // 搜索歌曲
-      musci: "邓紫棋"
+      musci: "邓紫棋",
+      // 歌曲URL
+      musciURL: "",
+      // 歌曲id
+      musciId: 36270426
     };
   },
   methods: {
     // 搜索 编程式路由
     searchMusci() {
       this.$router.push(`/results/${this.musci}`);
+    },
+    // 接受子组件传递过来的数据
+    receiveData(val) {
+      const { id } = val;
+      // 查询是否有版权
+      // 版权404错误 未解决
+      this.$axios
+        .get("http://localhost:3000/check/music", {
+          params: {
+            id
+          }
+        })
+        .then(() => {})
+        .catch(() => {
+          // 没版权
+          alert("暂没版权");
+        });
+      // 设置歌曲id
+      this.musciId = id;
+      // 搜索歌曲url
+      this.$axios
+        .get("http://localhost:3000/song/url", {
+          params: {
+            id
+          }
+        })
+        .then(res => {
+          // 设置歌曲自动播放
+          this.musciURL = res.data.data[0].url;
+        });
     }
   },
   computed: {
@@ -45,7 +79,7 @@ export default {
   created() {
     // 默认首页路由到搜索歌单
     this.$router.push(`/results/${this.musci}`);
-  },
+  }
 };
 </script>
 

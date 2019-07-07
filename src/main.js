@@ -31,7 +31,7 @@ const routes = [
   },
   // 歌词
   {
-    path: "/player",
+    path: "/player/:id",
     component: player
   },
   // MV
