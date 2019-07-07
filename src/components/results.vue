@@ -3,7 +3,7 @@
     <div class="song" v-for="item in songsList" :key="item.id">
       <div class="name">
         <span class="iconfont icon-play"></span>
-        {{item.name}}
+        <span class="resultName">{{item.name}}</span>
         <span class="iconfont icon-editmedia"></span>
       </div>
       <div class="singer">{{item.artists | formatSinger}}</div>
@@ -63,4 +63,18 @@ export default {
 <style>
 @import url("../assets/css/results.css");
 @import url("../assets/css/iconfont.css");
+.resultName {
+  width: 400px;
+  float: left;
+  padding-left: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.icon-play {
+  float: left;
+}
+.icon-editmedia {
+  float: left;
+}
 </style>
