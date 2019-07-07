@@ -23,6 +23,7 @@ export default {
     };
   },
   created() {
+    // 获取歌单列表
     this.$axios
       .get("http://localhost:3000/search", {
         params: {

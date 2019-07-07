@@ -1,8 +1,11 @@
 .player {
   width: 900px;
+  height: 400px;
+  overflow: auto;
   display: flex;
 }
-.player h3,ul {
+.player h3,
+ul {
   margin: 0;
   list-style: none;
   padding: 0;
@@ -41,19 +44,19 @@
 }
 .player .right .singer,
 .player .right .album {
-  color:#999999;
+  color: #999999;
   font-size: 13px;
   margin-top: 15px;
 }
 .player .right .singer span,
 .player .right .album span {
   font-size: 14px;
-  color:#0c73c2;
+  color: #0c73c2;
 }
 
 .player .right .audio {
   width: 100%;
-  margin-top:15px;
+  margin-top: 15px;
 }
 .player .right .lyric-container {
 }
