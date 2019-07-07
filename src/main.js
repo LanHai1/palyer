@@ -12,6 +12,8 @@ Vue.use(VueRouter);
 import results from "./components/results.vue";
 // 歌词
 import player from './components/player.vue'
+// MV
+import video from './components/video.vue'
 
 //  定义路由
 const routes = [
@@ -24,6 +26,11 @@ const routes = [
   {
     path: "/player",
     component: player
+  },
+  // MV
+  {
+    path: "/video",
+    component: video
   }
 ];
 

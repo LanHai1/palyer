@@ -12,7 +12,7 @@
       <div class="tab-bar">
         <router-link active-class="active" to="/results" tag="span" class="bar-item">搜索结果</router-link>
         <router-link active-class="active" to="/player" tag="span" class="bar-item">歌词</router-link>
-        <a class="bar-item">mv</a>
+        <router-link active-class="active" to="/video" tag="span" class="bar-item">mv</router-link>
         <a class="bar-item">歌曲评论</a>
       </div>
       <!-- 对应的内容区域 -->
