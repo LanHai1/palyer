@@ -8,14 +8,22 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 // 组件
-import musicSearch from "./components/musicSearch.vue";
+// 搜索结果
+import results from "./components/results.vue";
+// 歌词
+import player from './components/player.vue'
 
 //  定义路由
 const routes = [
   // 搜索结果
   {
-    path: "/musicSearch",
-    component: musicSearch
+    path: "/results",
+    component: results
+  },
+  // 歌词
+  {
+    path: "/player",
+    component: player
   }
 ];
 
