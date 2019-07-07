@@ -1,5 +1,12 @@
 # hellow
 
+## 成功运行项目需要 网易云接口node运行即可
+ 下载地址 👉 https://github.com/Binaryify/NeteaseCloudMusicApi
+
+node运行 `node app.js`
+
+
+
 ## Project setup
 ```
 npm install
