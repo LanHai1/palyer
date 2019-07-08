@@ -12,17 +12,26 @@
       <div class="tab-bar">
         <router-link active-class="active" :to="'/results/'+musci" tag="span" class="bar-item">搜索结果</router-link>
         <router-link active-class="active" :to="'/player/'+musciId" tag="span" class="bar-item">歌词</router-link>
-        <router-link active-class="active" to="/video" tag="span" class="bar-item">mv</router-link>
         <router-link active-class="active" to="/comment" tag="span" class="bar-item">歌曲评论</router-link>
+        <router-link active-class="active" to="/video" tag="span" class="bar-item">mv</router-link>
       </div>
       <!-- 对应的内容区域 -->
-      <router-view :key="key" @event="receiveData"></router-view>
+      <router-view :key="key" @event="receiveData" ref="childView" ></router-view>
     </div>
-    <audio class="audio" controls autoplay="autoplay" :src="musciURL"></audio>
+    <audio
+      class="audio"
+      controls
+      autoplay="autoplay"
+      ref="audioEL"
+      @play="play"
+      @pause="pause"
+      :src="musciURL"
+    ></audio>
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -75,6 +84,15 @@ export default {
           // 设置歌曲自动播放
           this.musciURL = res.data.data[0].url;
         });
+    },
+    // 播放
+    play() {
+      this.$refs.childView.playOrPause(true);
+    },
+    // 暂停
+    pause() {
+      // 调用子组件的方法
+      this.$refs.childView.playOrPause(false);
     }
   },
   computed: {

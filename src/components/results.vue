@@ -6,7 +6,9 @@
           class="iconfont icon-play"
           @click="playerSong({id:item.id,musicName:item.name,
           singerName:item.artists,
-          artistName:item.album.name})"
+          artistName:item.album.name,
+          albumID:item.album.id
+          })"
         ></span>
         <span class="resultName">{{item.name}}</span>
         <span class="iconfont icon-editmedia"></span>
@@ -66,7 +68,7 @@ export default {
   methods: {
     // 歌曲播放
     playerSong(val) {
-      const { id, musicName, artistName } = val;
+      const { id, musicName, artistName,albumID } = val;
       let { singerName } = val;
       // 调用过滤器方法 处理歌手格式
       singerName = this.$options.filters.formatSinger(singerName);
@@ -76,13 +78,14 @@ export default {
       // 编程式路由跳转
       this.$router.replace(`/player/${id}`);
 
-      // 本地存储数据 歌曲名字 歌手名 所属专辑
+      // 本地存储数据 歌曲名字 歌手名 所属专辑 专辑id
       localStorage.setItem(
         "musicDetails",
         JSON.stringify({
           musicName: musicName,
           singerName: singerName,
-          artistName: artistName
+          artistName: artistName,
+          albumID: albumID
         })
       );
     }

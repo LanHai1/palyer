@@ -1,8 +1,13 @@
 <template>
   <div class="player">
     <div class="left">
-      <img class="disc" src="../assets/img/disc.png" alt />
-      <img class="cover" src="../assets/img/cover.png" alt />
+      <img class="autoRotate disc" :class="{playing:isPlaying}" src="../assets/img/disc.png" alt />
+      <img
+        class="autoRotate cover"
+        :class="{playing:isPlaying}"
+        :src="albumIMG?albumIMG:'../assets/img/cover.png'"
+        alt
+      />
     </div>
     <div class="right">
       <div class="title">
@@ -36,7 +41,13 @@ export default {
       // 歌手名
       singerName: "邓紫棋",
       // 所属专辑
-      artistName: "新的心跳"
+      artistName: "新的心跳",
+      // 专辑id
+      albumID: 39483040,
+      // 专辑图片
+      albumIMG: "",
+      // 专辑转转转
+      isPlaying: false
     };
   },
   created() {
@@ -49,6 +60,8 @@ export default {
       })
       .then(res => {
         this.lyricList = res.data.lrc.lyric.split(/\n/);
+        // 专辑转转转
+        this.isPlaying = true;
       });
     // 本地存储获取歌单信息
     let musicDetails = JSON.parse(localStorage.getItem("musicDetails") || "{}");
@@ -57,7 +70,14 @@ export default {
       this.musicName = musicDetails.musicName;
       this.singerName = musicDetails.singerName;
       this.artistName = musicDetails.artistName;
+      this.albumID = musicDetails.albumID;
     }
+    // 获取专辑图片
+    this.$axios
+      .get(`http://localhost:3000/album?id=${this.albumID}`)
+      .then(res => {
+        this.albumIMG = res.data.songs[0].al.picUrl;
+      });
   },
   filters: {
     // 处理歌词
@@ -70,10 +90,36 @@ export default {
         return val;
       }
     }
+  },
+  methods: {
+    // 暂停or播放 转转转
+    playOrPause(boolean) {
+      this.isPlaying = boolean;
+    }
   }
 };
 </script>
 
 <style>
 @import url("../assets/css/player.css");
+/* 专辑旋转 */
+.autoRotate {
+  animation-name: Rotate;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  animation-timing-function: linear;
+  animation-duration: 5s;
+}
+.playing {
+  animation-play-state: running;
+}
+@keyframes Rotate {
+  0% {
+    transform: rotateZ(0);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
 </style>
