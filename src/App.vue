@@ -37,6 +37,13 @@ export default {
   methods: {
     // 搜索 编程式路由
     searchMusci() {
+      // 存储历史记录
+      localStorage.setItem(
+        "searchMusci",
+        JSON.stringify({
+          musci: this.musci
+        })
+      );
       this.$router.push(`/results/${this.musci}`);
     },
     // 接受子组件传递过来的数据
@@ -77,6 +84,12 @@ export default {
     }
   },
   created() {
+    // 历史记录歌曲搜索
+    const { musci } = JSON.parse(localStorage.getItem("searchMusci") || "{}");
+    if (musci !== undefined) {
+      this.musci = musci;
+    }
+
     // 默认首页路由到搜索歌单
     this.$router.push(`/results/${this.musci}`);
   }
