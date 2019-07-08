@@ -11,7 +11,13 @@
 
 <script>
 export default {
-    name:"videos"
+    name:"videos",
+    data () {
+      return {
+          
+      }
+    },
+
 };
 </script>
 

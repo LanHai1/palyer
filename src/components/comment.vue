@@ -1,26 +1,30 @@
 <template>
   <div class="comment-wrapper">
-    <div class="items">
-      <div class="item" v-for="(item, index) in commentsList" :key="index">
+    <transition-group name="slide" tag="div" class="items">
+      <div
+        class="item"
+        v-for="(item, index) in commentsList"
+        :style="{transitionDuration:index*300+'ms'}"
+        :key="index"
+      >
         <div class="left">
           <img :src="item.user.avatarUrl" alt />
         </div>
         <div class="right">
           <div class="top">
             <span class="user">{{item.user.nickname}}:</span>
-            <span
-              class="content"
-            >{{item.content}}</span>
+            <span class="content">{{item.content}}</span>
           </div>
           <div class="bottom">
             <div class="time">{{item.time}}</div>
             <div class="like-wrapper">
-              <span>👍</span>({{item.likedCount}})
+              <span>👍</span>
+              ({{item.likedCount}})
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -51,4 +55,16 @@ export default {
 
 <style>
 @import url("../assets/css/comment.css");
+/* 评论列表动画 */
+.slide-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-leave-active {
+  transition: all 3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(50px);
+  /* opacity: 0; */
+}
 </style>

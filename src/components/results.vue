@@ -1,9 +1,10 @@
 <template>
-  <div class="result-wrapper">
+  <transition-group name="slide-fade" tag="div" class="result-wrapper">
     <div
       class="song"
-      v-for="item in songsList"
+      v-for="(item,index) in songsList"
       :key="item.id"
+      :style="{transitionDelay: index*100+'ms'}"
       @dblclick.stop="dblClickComment({id:item.id,musicName:item.name,
           singerName:item.artists,
           artistName:item.album.name,
@@ -20,13 +21,13 @@
           })"
         ></span>
         <span class="resultName">{{item.name}}</span>
-        <span class="iconfont icon-editmedia"></span>
+        <span class="iconfont icon-editmedia" v-if="item.mvid!==0"></span>
       </div>
       <div class="singer">{{item.artists | formatSinger}}</div>
       <div class="album">《{{item.album.name}}》</div>
       <div class="time">{{item.duration | formatTime }}</div>
     </div>
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -135,5 +136,18 @@ export default {
 }
 .icon-editmedia {
   float: left;
+}
+
+/* 歌曲列表动画 */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>

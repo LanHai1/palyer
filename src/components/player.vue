@@ -22,9 +22,14 @@
         所属专辑:
         <span>{{artistName}}</span>
       </div>
-      <ul class="lyric-container">
-        <li class="lyric" v-for="(item, index) in lyricList" :key="index">{{item | formatLyric}}</li>
-      </ul>
+      <transition-group class="lyric-container" tag="ul" name="fade">
+        <li
+          class="lyric"
+          v-for="(item, index) in lyricList"
+          :key="index"
+          :style="{transitionDelay: 100*index+'ms'}"
+        >{{item | formatLyric}}</li>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -119,12 +124,24 @@ export default {
     transform: rotateZ(0) scale(0.8);
   }
 
-  50%{
-     transform: rotateZ(180deg) scale(0.9);
+  50% {
+    transform: rotateZ(180deg) scale(0.9);
   }
 
   100% {
     transform: rotateZ(360deg) scale(0.8);
   }
+}
+/* 歌词动画 */
+.fade-enter-active {
+  transition: all 0.3s ease;
+}
+.fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.fade-enter,
+.fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
