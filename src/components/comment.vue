@@ -1,49 +1,52 @@
 <template>
-    <div class="comment-wrapper">
+  <div class="comment-wrapper">
     <div class="items">
-      <div class="item">
+      <div class="item" v-for="(item, index) in commentsList" :key="index">
         <div class="left">
-          <img src="../assets/img/icon.jpg" alt="">
+          <img :src="item.user.avatarUrl" alt />
         </div>
         <div class="right">
           <div class="top">
-            <span class="user">阿木木:</span>
-            <span class="content">写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心</span>
+            <span class="user">{{item.user.nickname}}:</span>
+            <span
+              class="content"
+            >{{item.content}}</span>
           </div>
           <div class="bottom">
-            <div class="time">2016年9月18日</div>
+            <div class="time">{{item.time}}</div>
             <div class="like-wrapper">
-                <span>👍</span>(6666)
+              <span>👍</span>({{item.likedCount}})
             </div>
           </div>
         </div>
       </div>
-      <div class="item">
-        <div class="left">
-          <img src="../assets/img/icon.jpg" alt="">
-        </div>
-        <div class="right">
-          <div class="top">
-            <span class="user">阿木木:</span>
-            <span class="content">写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心写歌的人假正经，唱歌的人最矫情，听歌的人最用心</span>
-          </div>
-          <div class="bottom">
-            <div class="time">2016年9月18日</div>
-            <div class="like-wrapper">
-                <span>👍</span>(6666)
-            </div>
-          </div>
-        </div>
-      </div>
-     
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    name:"comment"
-}
+  name: "comment",
+  data() {
+    return {
+      // 评论数组
+      commentsList: []
+    };
+  },
+  created() {
+    // 请求评论数据
+    this.$axios
+      .get("http://localhost:3000/comment/hot", {
+        params: {
+          id: this.$route.params.id,
+          type: 0
+        }
+      })
+      .then(res => {
+        this.commentsList = res.data.hotComments;
+      });
+  }
+};
 </script>
 
 <style>

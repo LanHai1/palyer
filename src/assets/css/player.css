@@ -27,6 +27,8 @@ ul {
 }
 .player .right {
   flex: 1;
+  height: 400px;
+  overflow: auto;
 }
 .player .right .title {
   margin-top: 40px;
