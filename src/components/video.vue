@@ -1,11 +1,13 @@
 <template>
-  <div class="video">
-    <div class="title-wrapper">
-      <span class="tag">MV</span>
-      <span class="title">{{name}}</span>
-      <span class="artist">{{artistName}}</span>
+  <div class="video" ref="vvio">
+    <div>
+      <div class="title-wrapper">
+        <span class="tag">MV</span>
+        <span class="title">{{name}}</span>
+        <span class="artist">{{artistName}}</span>
+      </div>
+      <video :src="videoURL" ref="videoMy" controls autoplay="autoplay" @play="play"></video>
     </div>
-    <video :src="videoURL" ref="videoMy" controls autoplay="autoplay" @play="play"></video>
   </div>
 </template>
 
@@ -19,7 +21,9 @@ export default {
       // 歌曲名
       name: "",
       // video的地址
-      videoURL: ""
+      videoURL: "",
+      // 滚动
+      myScroll: undefined
     };
   },
   methods: {
@@ -51,6 +55,16 @@ export default {
           ? res.data.data.brs["480"]
           : res.data.data.brs["240"];
       });
+  },
+  mounted() {
+    // 滚动条
+    // this.myScroll = new this.$iscroll(this.$refs.vvio, {
+    //   mouseWheel: true // 开启鼠标滚轮支持
+    // });
+  },
+  updated() {
+    // 刷新滚动;
+    // this.myScroll.refresh();
   }
 };
 </script>

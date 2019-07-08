@@ -9,27 +9,29 @@
         alt
       />
     </div>
-    <div class="right">
-      <div class="title">
-        <img src="../assets/img/tag.png" alt />
-        <span>{{musicName}}</span>
+    <div class="right" ref="singger">
+      <div>
+        <div class="title">
+          <img src="../assets/img/tag.png" alt />
+          <span>{{musicName}}</span>
+        </div>
+        <div class="singer">
+          歌手:
+          <span>{{singerName}}</span>
+        </div>
+        <div class="album">
+          所属专辑:
+          <span>{{artistName}}</span>
+        </div>
+        <transition-group class="lyric-container" tag="ul" name="fade">
+          <li
+            class="lyric"
+            v-for="(item, index) in lyricList"
+            :key="index"
+            :style="{transitionDelay: 100*index+'ms'}"
+          >{{item | formatLyric}}</li>
+        </transition-group>
       </div>
-      <div class="singer">
-        歌手:
-        <span>{{singerName}}</span>
-      </div>
-      <div class="album">
-        所属专辑:
-        <span>{{artistName}}</span>
-      </div>
-      <transition-group class="lyric-container" tag="ul" name="fade">
-        <li
-          class="lyric"
-          v-for="(item, index) in lyricList"
-          :key="index"
-          :style="{transitionDelay: 100*index+'ms'}"
-        >{{item | formatLyric}}</li>
-      </transition-group>
     </div>
   </div>
 </template>
@@ -52,7 +54,9 @@ export default {
       // 专辑图片
       albumIMG: "",
       // 专辑转转转
-      isPlaying: false
+      isPlaying: false,
+      // 滚动
+      myScroll: undefined
     };
   },
   created() {
@@ -99,12 +103,20 @@ export default {
   mounted() {
     // // // 播放音乐
     // this.$emit("playMusci");
+    // 滚动条
+    this.myScroll = new this.$iscroll(this.$refs.singger, {
+      mouseWheel: true // 开启鼠标滚轮支持
+    });
   },
   methods: {
     // 暂停or播放 转转转
     playOrPause(boolean) {
       this.isPlaying = boolean;
     }
+  },
+  updated() {
+    // 刷新滚动
+    this.myScroll.refresh();
   }
 };
 </script>
@@ -147,5 +159,9 @@ export default {
 .fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
+}
+
+.right {
+  cursor: default;
 }
 </style>

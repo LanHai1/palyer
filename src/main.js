@@ -9,6 +9,11 @@ import axios from "axios";
 // 全局配置axios
 Vue.prototype.$axios = axios;
 
+// 导入 axios
+import iscroll from "iscroll";
+// 全局配置axios
+Vue.prototype.$iscroll = iscroll;
+
 // 模块化机制编程
 Vue.use(VueRouter);
 

@@ -1,33 +1,35 @@
 <template>
-  <transition-group name="slide-fade" tag="div" class="result-wrapper">
-    <div
-      class="song"
-      v-for="(item,index) in songsList"
-      :key="item.id"
-      :style="{transitionDelay: index*100+'ms'}"
-      @dblclick.stop="dblClickComment({id:item.id,musicName:item.name,
+  <div class="result-wrapper" ref="res">
+    <transition-group name="slide-fade" tag="div">
+      <div
+        class="song"
+        v-for="(item,index) in songsList"
+        :key="item.id"
+        :style="{transitionDelay: index*100+'ms'}"
+        @dblclick.stop="dblClickComment({id:item.id,musicName:item.name,
           singerName:item.artists,
           artistName:item.album.name,
           albumID:item.album.id
           })"
-    >
-      <div class="name">
-        <span
-          class="iconfont icon-play"
-          @click.stop="playerSong({id:item.id,musicName:item.name,
+      >
+        <div class="name">
+          <span
+            class="iconfont icon-play"
+            @click.stop="playerSong({id:item.id,musicName:item.name,
           singerName:item.artists,
           artistName:item.album.name,
           albumID:item.album.id
           })"
-        ></span>
-        <span class="resultName">{{item.name}}</span>
-        <span class="iconfont icon-editmedia" v-if="item.mvid!==0" @click="goMv(item.mvid)"></span>
+          ></span>
+          <span class="resultName">{{item.name}}</span>
+          <span class="iconfont icon-editmedia" v-if="item.mvid!==0" @click="goMv(item.mvid)"></span>
+        </div>
+        <div class="singer">{{item.artists | formatSinger}}</div>
+        <div class="album">《{{item.album.name}}》</div>
+        <div class="time">{{item.duration | formatTime }}</div>
       </div>
-      <div class="singer">{{item.artists | formatSinger}}</div>
-      <div class="album">《{{item.album.name}}》</div>
-      <div class="time">{{item.duration | formatTime }}</div>
-    </div>
-  </transition-group>
+    </transition-group>
+  </div>
 </template>
 
 <script>
@@ -36,7 +38,9 @@ export default {
   data() {
     return {
       // 歌单列表
-      songsList: []
+      songsList: [],
+      // 滚动
+      myScroll: undefined
     };
   },
   created() {
@@ -122,6 +126,16 @@ export default {
       this.$emit("mvevent", mvid);
       this.$router.replace(`/video/${mvid}`);
     }
+  },
+  mounted() {
+    // 滚动条
+    this.myScroll = new this.$iscroll(this.$refs.res, {
+      mouseWheel: true // 开启鼠标滚轮支持
+    });
+  },
+  updated() {
+    // 刷新滚动;
+    this.myScroll.refresh();
   }
 };
 </script>
