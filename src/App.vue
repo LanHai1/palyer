@@ -16,7 +16,7 @@
         <router-link active-class="active" to="/video" tag="span" class="bar-item">mv</router-link>
       </div>
       <!-- 对应的内容区域 -->
-      <router-view :key="key" @event="receiveData" ref="childView" ></router-view>
+      <router-view :key="key" @event="receiveData" ref="childView"></router-view>
     </div>
     <audio
       class="audio"
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -87,11 +86,15 @@ export default {
     },
     // 播放
     play() {
+      // 编程式路由到歌词组件路由
+      this.$router.push(`/player/${this.musciId}`);
+      if (this.$refs.childView.playOrPause === undefined) return;
       this.$refs.childView.playOrPause(true);
     },
     // 暂停
     pause() {
       // 调用子组件的方法
+      if (this.$refs.childView.playOrPause === undefined) return;
       this.$refs.childView.playOrPause(false);
     }
   },

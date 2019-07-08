@@ -109,17 +109,22 @@ export default {
   animation-play-state: paused;
   animation-timing-function: linear;
   animation-duration: 5s;
+  transform: scale(0.9);
 }
 .playing {
   animation-play-state: running;
 }
 @keyframes Rotate {
   0% {
-    transform: rotateZ(0);
+    transform: rotateZ(0) scale(0.8);
+  }
+
+  50%{
+     transform: rotateZ(180deg) scale(0.9);
   }
 
   100% {
-    transform: rotateZ(360deg);
+    transform: rotateZ(360deg) scale(0.8);
   }
 }
 </style>
