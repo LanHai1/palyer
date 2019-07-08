@@ -49,6 +49,8 @@ export default {
       .then(res => {
         this.commentsList = res.data.hotComments;
       });
+    // 播放音乐
+    this.$emit("playMusci");
   }
 };
 </script>

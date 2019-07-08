@@ -18,10 +18,17 @@
           tag="span"
           class="bar-item"
         >歌曲评论</router-link>
-        <router-link active-class="active" to="/video" tag="span" class="bar-item">mv</router-link>
+        <router-link active-class="active" :to="'/video/'+mvid" tag="span" class="bar-item">mv</router-link>
       </div>
       <!-- 对应的内容区域 -->
-      <router-view :key="key" @event="receiveData" ref="childView"></router-view>
+      <router-view
+        :key="key"
+        @event="receiveData"
+        @mvevent="mv"
+        @stopMusci="stopPause"
+        @playMusci="playPlay"
+        ref="childView"
+      ></router-view>
     </div>
     <audio
       class="audio"
@@ -42,9 +49,12 @@ export default {
       // 搜索歌曲
       musci: "邓紫棋",
       // 歌曲URL
-      musciURL: "",
+      musciURL:
+        "http://m10.music.126.net/20190708160331/a238582d4b5a861bc9443d20fc811bad/ymusic/b854/e1ff/e7c1/653c638e24580e2869184c592a370056.mp3",
       // 歌曲id
-      musciId: 36270426
+      musciId: 36270426,
+      // MVid
+      mvid: 503273
     };
   },
   methods: {
@@ -89,18 +99,35 @@ export default {
           this.musciURL = res.data.data[0].url;
         });
     },
-    // 播放
+    // mv
+    mv(mvid) {
+      this.mvid = mvid;
+    },
+    // 播放音乐
     play() {
       // 编程式路由到歌词组件路由
       // this.$router.push(`/player/${this.musciId}`);
       if (this.$refs.childView.playOrPause === undefined) return;
       this.$refs.childView.playOrPause(true);
+
+      // 没有触发 子组件的关闭音乐函数
+      // console.log("播放")
+      if (this.$refs.childView.pause === undefined) return;
+      this.$refs.childView.pauseMV();
     },
-    // 暂停
+    // 暂停音乐
     pause() {
       // 调用子组件的方法
       if (this.$refs.childView.playOrPause === undefined) return;
       this.$refs.childView.playOrPause(false);
+    },
+    // 暂停音乐(MV)
+    stopPause() {
+      this.$refs.audioEL.pause();
+    },
+    // 播放音乐(其他除了MV组件)
+    playPlay() {
+      this.$refs.audioEL.play();
     }
   },
   computed: {

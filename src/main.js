@@ -36,7 +36,7 @@ const routes = [
   },
   // MV
   {
-    path: "/video",
+    path: "/video/:mvid",
     component: video
   },
   // 评论

@@ -83,6 +83,8 @@ export default {
       .then(res => {
         this.albumIMG = res.data.songs[0].al.picUrl;
       });
+    // 播放音乐
+    this.$emit("playMusci");
   },
   filters: {
     // 处理歌词

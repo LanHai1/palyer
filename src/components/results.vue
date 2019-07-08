@@ -21,7 +21,7 @@
           })"
         ></span>
         <span class="resultName">{{item.name}}</span>
-        <span class="iconfont icon-editmedia" v-if="item.mvid!==0"></span>
+        <span class="iconfont icon-editmedia" v-if="item.mvid!==0" @click="goMv(item.mvid)"></span>
       </div>
       <div class="singer">{{item.artists | formatSinger}}</div>
       <div class="album">《{{item.album.name}}》</div>
@@ -115,6 +115,12 @@ export default {
           albumID: albumID
         })
       );
+    },
+    // goMV
+    goMv(mvid) {
+      // 传递歌曲id给父组件
+      this.$emit("mvevent", mvid);
+      this.$router.replace(`/video/${mvid}`);
     }
   }
 };
