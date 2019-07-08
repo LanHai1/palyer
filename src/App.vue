@@ -12,7 +12,12 @@
       <div class="tab-bar">
         <router-link active-class="active" :to="'/results/'+musci" tag="span" class="bar-item">搜索结果</router-link>
         <router-link active-class="active" :to="'/player/'+musciId" tag="span" class="bar-item">歌词</router-link>
-        <router-link active-class="active" to="/comment" tag="span" class="bar-item">歌曲评论</router-link>
+        <router-link
+          active-class="active"
+          :to="'/comment/'+musciId"
+          tag="span"
+          class="bar-item"
+        >歌曲评论</router-link>
         <router-link active-class="active" to="/video" tag="span" class="bar-item">mv</router-link>
       </div>
       <!-- 对应的内容区域 -->
@@ -87,7 +92,7 @@ export default {
     // 播放
     play() {
       // 编程式路由到歌词组件路由
-      this.$router.push(`/player/${this.musciId}`);
+      // this.$router.push(`/player/${this.musciId}`);
       if (this.$refs.childView.playOrPause === undefined) return;
       this.$refs.childView.playOrPause(true);
     },

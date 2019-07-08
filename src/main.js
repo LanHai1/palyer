@@ -41,7 +41,7 @@ const routes = [
   },
   // 评论
   {
-    path: "/comment",
+    path: "/comment/:id",
     component: comment
   }
 ];
