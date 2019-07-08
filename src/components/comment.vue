@@ -16,7 +16,7 @@
             <span class="content">{{item.content}}</span>
           </div>
           <div class="bottom">
-            <div class="time">{{item.time}}</div>
+            <div class="time">{{item.time | translateDate}}</div>
             <div class="like-wrapper">
               <span>👍</span>
               ({{item.likedCount}})
@@ -49,8 +49,26 @@ export default {
       .then(res => {
         this.commentsList = res.data.hotComments;
       });
-    // 播放音乐
-    this.$emit("playMusci");
+    // // 播放音乐
+    // this.$emit("playMusci");
+  },
+  filters: {
+    translateDate: function(current_date) {
+      let date = new Date(current_date);
+      let datetime =
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1 >= 10
+          ? date.getMonth() + 1
+          : "0" + (date.getMonth() + 1)) +
+        "-" +
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
+        " " +
+        (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
+        ":" +
+        (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+      return datetime;
+    }
   }
 };
 </script>

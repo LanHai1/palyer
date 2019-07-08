@@ -49,8 +49,7 @@ export default {
       // 搜索歌曲
       musci: "邓紫棋",
       // 歌曲URL
-      musciURL:
-        "http://m10.music.126.net/20190708160331/a238582d4b5a861bc9443d20fc811bad/ymusic/b854/e1ff/e7c1/653c638e24580e2869184c592a370056.mp3",
+      musciURL: "",
       // 歌曲id
       musciId: 36270426,
       // MVid
@@ -127,6 +126,8 @@ export default {
     },
     // 播放音乐(其他除了MV组件)
     playPlay() {
+      this.musciURL =
+        "http://m10.music.126.net/20190708160331/a238582d4b5a861bc9443d20fc811bad/ymusic/b854/e1ff/e7c1/653c638e24580e2869184c592a370056.mp3";
       this.$refs.audioEL.play();
     }
   },
@@ -154,5 +155,8 @@ export default {
 @import url("./assets/css/iconfont.css");
 .audio {
   width: 100%;
+}
+* {
+  outline: none;
 }
 </style>
