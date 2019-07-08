@@ -3,7 +3,7 @@
     <h2 class="title">某云音乐</h2>
     <div class="search">
       <input type="text" v-model.trim.lazy="musci" @keyup.enter="searchMusci" />
-      <button>
+      <button @click="searchMusci">
         <span class="iconfont icon-search"></span>
       </button>
     </div>

@@ -7,15 +7,15 @@
     <div class="right">
       <div class="title">
         <img src="../assets/img/tag.png" alt />
-        <span>放个大招给你看</span>
+        <span>{{musicName}}</span>
       </div>
       <div class="singer">
         歌手:
-        <span>尼古拉斯赵四</span>
+        <span>{{singerName}}</span>
       </div>
       <div class="album">
         所属专辑:
-        <span>我就是我</span>
+        <span>{{artistName}}</span>
       </div>
       <ul class="lyric-container">
         <li class="lyric" v-for="(item, index) in lyricList" :key="index">{{item | formatLyric}}</li>
@@ -30,7 +30,13 @@ export default {
   data() {
     return {
       // 歌词数组
-      lyricList: []
+      lyricList: [],
+      // 歌曲名字
+      musicName: "来自天堂的魔鬼",
+      // 歌手名
+      singerName: "邓紫棋",
+      // 所属专辑
+      artistName: "新的心跳"
     };
   },
   created() {
@@ -44,6 +50,14 @@ export default {
       .then(res => {
         this.lyricList = res.data.lrc.lyric.split(/\n/);
       });
+    // 本地存储获取歌单信息
+    let musicDetails = JSON.parse(localStorage.getItem("musicDetails") || "{}");
+    // 有值
+    if (musicDetails.musicName !== undefined) {
+      this.musicName = musicDetails.musicName;
+      this.singerName = musicDetails.singerName;
+      this.artistName = musicDetails.artistName;
+    }
   },
   filters: {
     // 处理歌词

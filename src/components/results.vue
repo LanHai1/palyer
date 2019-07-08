@@ -2,7 +2,12 @@
   <div class="result-wrapper">
     <div class="song" v-for="item in songsList" :key="item.id">
       <div class="name">
-        <span class="iconfont icon-play" @click="playerSong(item.id)"></span>
+        <span
+          class="iconfont icon-play"
+          @click="playerSong({id:item.id,musicName:item.name,
+          singerName:item.artists,
+          artistName:item.album.name})"
+        ></span>
         <span class="resultName">{{item.name}}</span>
         <span class="iconfont icon-editmedia"></span>
       </div>
@@ -60,11 +65,26 @@ export default {
   },
   methods: {
     // 歌曲播放
-    playerSong(id) {
+    playerSong(val) {
+      const { id, musicName, artistName } = val;
+      let { singerName } = val;
+      // 调用过滤器方法 处理歌手格式
+      singerName = this.$options.filters.formatSinger(singerName);
+
       // 传递歌曲id给父组件
       this.$emit("event", { id });
       // 编程式路由跳转
-      this.$router.replace(`/player/${id}`)
+      this.$router.replace(`/player/${id}`);
+
+      // 本地存储数据 歌曲名字 歌手名 所属专辑
+      localStorage.setItem(
+        "musicDetails",
+        JSON.stringify({
+          musicName: musicName,
+          singerName: singerName,
+          artistName: artistName
+        })
+      );
     }
   }
 };
